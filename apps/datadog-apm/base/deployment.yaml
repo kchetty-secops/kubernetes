@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datadog-apm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: datadog-apm
+  template:
+    metadata:
+      labels:
+        app: datadog-apm
+    spec:
+      containers:
+      - name: datadog-agent
+        image: gcr.io/datadoghq/agent:latest
+        ports:
+        - containerPort: 8126
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"

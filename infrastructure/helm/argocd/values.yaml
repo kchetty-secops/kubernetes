@@ -1,0 +1,39 @@
+server:
+  service:
+    type: LoadBalancer
+  replicas: 1
+
+controller:
+  replicas: 1
+
+repoServer:
+  replicas: 1
+
+applicationSet:
+  enabled: false
+
+redis:
+  enabled: false
+
+dex:
+  enabled: false
+
+notifications:
+  enabled: false
+
+configs:
+  params:
+    server.insecure: true # Allow access without HTTPS for testing
+
+  cm:
+    admin.enabled: true
+
+  rbac:
+    policy.default: role:admin
+
+  secret:
+    argocdServerAdminPassword: ""
+
+# Disable autoscaler (saves pod)
+autoscaling:
+  enabled: false
