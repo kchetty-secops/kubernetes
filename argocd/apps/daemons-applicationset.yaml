@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: system-daemons
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/your-org/gitops-repo.git
+        revision: HEAD
+        directories:
+          - path: daemons/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/your-org/gitops-repo.git
+        targetRevision: HEAD
+        path: '{{path}}/base'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
