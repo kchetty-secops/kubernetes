@@ -12,16 +12,16 @@ spec:
           - path: apps/*
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: "{{path.basename}}"
     spec:
       project: default
       source:
         repoURL: https://github.com/kchetty-secops/kubernetes.git
         targetRevision: HEAD
-        path: '{{path}}/base'
+        path: "{{path}}/base"
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
+        namespace: "{{path.basename}}"
       syncPolicy:
         automated:
           selfHeal: true
